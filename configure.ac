@@ -263,6 +263,10 @@ AM_CHECK_PYTHON_HEADERS(, AC_MSG_ERROR([Python headers not found]))
 if test "x$os_win32" = "xyes"; then
   AM_CHECK_PYTHON_LIBS(, AC_MSG_ERROR([Python libs not found. Windows requires Python modules to be explicitly linked to libpython.]))
 fi
+AC_MSG_CHECKING(for the Python path separator)
+PYTHONPATHSEP=$($PYTHON -c 'import sys, os; sys.stdout.write(os.pathsep)')
+AC_SUBST(PYTHONPATHSEP)
+AC_MSG_RESULT($PYTHONPATHSEP)
 
 dnl Not enabled by default until 3.6 cycle when we can propose mako as
 dnl an external dependency
