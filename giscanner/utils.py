@@ -184,8 +184,11 @@ def cflag_real_include_path(cflag):
     return "-I" + os.path.realpath(cflag[2:])
 
 
+def osname():
+    return os.environ.get("GI_OS_NAME", os.name)
+
 def exeext():
-    if os.name == "nt":
+    if osname() == "nt":
         exeext = ".exe"
     else:
         exeext = ""

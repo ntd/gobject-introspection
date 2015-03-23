@@ -24,7 +24,7 @@ import platform
 import re
 import subprocess
 
-from .utils import get_libtool_command, extract_libtool_shlib, which
+from .utils import get_libtool_command, extract_libtool_shlib, which, osname
 from .ccompiler import CCompiler
 
 
@@ -89,7 +89,7 @@ def _resolve_non_libtool(options, binary, libraries):
         else:
             binary.args[0] = old_argdir
 
-    if os.name == 'nt':
+    if osname() == 'nt':
         cc = CCompiler()
         shlibs = cc.resolve_windows_libs(libraries, options)
 

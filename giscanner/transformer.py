@@ -34,6 +34,7 @@ from .sourcescanner import (
     CSYMBOL_TYPE_ENUM, CSYMBOL_TYPE_UNION, CSYMBOL_TYPE_OBJECT,
     CSYMBOL_TYPE_MEMBER, CSYMBOL_TYPE_ELLIPSIS, CSYMBOL_TYPE_CONST,
     TYPE_QUALIFIER_CONST, TYPE_QUALIFIER_VOLATILE)
+from .utils import osname
 
 
 class TransformerException(Exception):
@@ -43,7 +44,7 @@ class TransformerException(Exception):
 _xdg_data_dirs = [x for x in os.environ.get('XDG_DATA_DIRS', '').split(os.pathsep)]
 _xdg_data_dirs.append(DATADIR)
 
-if os.name != 'nt':
+if osname() != 'nt':
     _xdg_data_dirs.append('/usr/share')
 
 

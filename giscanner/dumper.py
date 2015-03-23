@@ -258,7 +258,7 @@ class DumpCompiler(object):
         else:
             args.extend(['-o', output])
         if libtool:
-            if os.name == 'nt':
+            if utils.osname() == 'nt':
                 args.append('-Wl,--export-all-symbols')
             else:
                 args.append('-export-dynamic')
