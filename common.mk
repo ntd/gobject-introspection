@@ -4,7 +4,11 @@
 # This file defines variables that are compatible with
 # Makefile.introspection, but for use within the gobject-introspection
 # module itself.
-#
+
+
+# The command to use for executing g-ir-compiler. Normally should be
+# empty but can be defined (e.g. wine or qemu) during cross-compilation
+INTROSPECTION_LAUNCHER =
 
 INTROSPECTION_SCANNER = \
     env PATH=".libs:$(PATH)" \
@@ -25,6 +29,7 @@ INTROSPECTION_SCANNER_ARGS = \
 
 INTROSPECTION_COMPILER = \
     env PATH=".libs:$(PATH)" \
+        $(INTROSPECTION_LAUNCHER) \
         $(top_builddir)/g-ir-compiler$(EXEEXT)
 
 INTROSPECTION_COMPILER_ARGS = \

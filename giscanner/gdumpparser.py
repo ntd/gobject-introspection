@@ -158,6 +158,12 @@ blob containing data gleaned from GObject's primitive introspection."""
         out_path = os.path.join(self._binary.tmpdir, 'dump.xml')
 
         args = []
+
+        # Prepend the emulator command and arguments, if defined
+        emulator = os.environ.get('INTROSPECTION_LAUNCHER')
+        if emulator:
+            args.extend(emulator.split())
+
         args.extend(self._binary.args)
         args.append('--introspect-dump=%s,%s' % (in_path, out_path))
 
