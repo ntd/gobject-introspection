@@ -101,9 +101,9 @@ def _resolve_non_libtool(options, binary, libraries):
             args.append('--mode=execute')
         platform_system = platform.system()
         if platform_system == 'Darwin':
-            args.extend(['otool', '-L', binary.args[0]])
+            args.extend([os.environ.get('OTOOL', 'otool'), '-L', binary.args[0]])
         else:
-            args.extend(['ldd', binary.args[0]])
+            args.extend([os.environ.get('LDD', 'ldd'), binary.args[0]])
         proc = subprocess.Popen(args, stdout=subprocess.PIPE)
         patterns = {}
         for library in libraries:
