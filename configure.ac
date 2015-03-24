@@ -259,10 +259,13 @@ case "$host" in
 	pyexecdir=`echo $pyexecdir | tr '\\\\' '/'`
 	;;
 esac
-AM_CHECK_PYTHON_HEADERS(, AC_MSG_ERROR([Python headers not found]))
-if test "x$os_win32" = "xyes"; then
-  AM_CHECK_PYTHON_LIBS(, AC_MSG_ERROR([Python libs not found. Windows requires Python modules to be explicitly linked to libpython.]))
-fi
+AC_ARG_ENABLE(giscanner,AS_HELP_STRING([--disable-giscanner],[disable giscanner python module]),,enable_giscanner=yes)
+AS_IF([test x$enable_giscanner != xno], [
+  AM_CHECK_PYTHON_HEADERS(, AC_MSG_ERROR([Python headers not found]))
+  if test "x$os_win32" = "xyes"; then
+    AM_CHECK_PYTHON_LIBS(, AC_MSG_ERROR([Python libs not found. Windows requires Python modules to be explicitly linked to libpython.]))
+  fi
+])
 AC_MSG_CHECKING(for the Python path separator)
 PYTHONPATHSEP=$($PYTHON -c 'import sys, os; sys.stdout.write(os.pathsep)')
 AC_SUBST(PYTHONPATHSEP)
